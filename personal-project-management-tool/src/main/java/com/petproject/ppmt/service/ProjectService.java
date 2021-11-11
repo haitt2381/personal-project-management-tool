@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Service
 public class ProjectService {
@@ -19,5 +21,13 @@ public class ProjectService {
         }catch (Exception ex){
             throw new ProjectIdException("Project ID: '"+project.getIdentifier()+"' already exits");
         }
+    }
+
+    public Project findByIdentifier(String projectId){
+        Optional<Project> project = projectRepo.findByIdentifier(projectId.toUpperCase());
+        if(project.isEmpty()){
+            throw new ProjectIdException("Project ID: '"+projectId+"' doesn't exits");
+        }
+        return project.get();
     }
 }
