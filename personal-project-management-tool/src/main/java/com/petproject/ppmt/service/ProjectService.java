@@ -37,6 +37,6 @@ public class ProjectService {
 
     public void deleteProject(String projectId){
         Project project = this.findByIdentifier(projectId);
-
+        projectRepo.delete(project);
     }
 }
